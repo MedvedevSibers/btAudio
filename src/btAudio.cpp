@@ -11,6 +11,7 @@
  String btAudio::album="";
  String btAudio::genre="";
  String btAudio::artist="";
+ String btAudio::conState="";
  
  int btAudio::_postprocess=0;
  filter btAudio::_filtLhp = filter(2,_sampleRate,3,highpass); 
@@ -119,6 +120,7 @@ void btAudio::a2d_cb(esp_a2d_cb_event_t event, esp_a2d_cb_param_t*param){
             if (preferences.getUChar("btaddr4", 0) != _address[4]) { preferences.putUChar("btaddr4", _address[4]); ESP_LOGI("btAudio", "Writing BTaddr4"); }
             if (preferences.getUChar("btaddr5", 0) != _address[5]) { preferences.putUChar("btaddr5", _address[5]); ESP_LOGI("btAudio", "Writing BTaddr5"); }
             preferences.end();
+	    conState = "CONNECTED";
             break;
         }
     }
