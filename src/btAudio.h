@@ -54,9 +54,10 @@ class btAudio {
 	float _w=10.0;
 	float _mu=0.0; 
 	static String title;
-    static String artist;
-    static String album;
+        static String artist;
+        static String album;
 	static String genre;
+	static String conState;
 	
   private:
     const char *_devName;
