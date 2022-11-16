@@ -3,7 +3,7 @@
 ////////////////////////////////////////////////////////////////////
 ////////////// Nasty statics for i2sCallback ///////////////////////
 ////////////////////////////////////////////////////////////////////
- float btAudio::_vol=0.95;
+ float btAudio::_vol=0.1;
  esp_bd_addr_t btAudio::_address;
  int32_t btAudio::_sampleRate=44100;
   
@@ -11,7 +11,7 @@
  String btAudio::album="";
  String btAudio::genre="";
  String btAudio::artist="";
- String btAudio::conState="";
+ String btAudio::conState="Not connected";
  
  int btAudio::_postprocess=0;
  filter btAudio::_filtLhp = filter(2,_sampleRate,3,highpass); 
@@ -123,6 +123,11 @@ void btAudio::a2d_cb(esp_a2d_cb_event_t event, esp_a2d_cb_param_t*param){
 	    conState = "CONNECTED";
             break;
         }
+	if (a2d->conn_stat.state == ESP_A2D_CONNECTION_STATE_DISCONNECTED)
+	{
+	    conState = "DISCONNECTED";
+	    break;
+	}
     }
 	case ESP_A2D_AUDIO_CFG_EVT: {
         ESP_LOGI("BT_AV", "A2DP audio stream configuration, codec type %d", a2d->audio_cfg.mcc.type);
